@@ -63,8 +63,8 @@ class Messages extends React.Component {
         return (
             <div className='mainWrapper'>
                 <div className='messageInput'>
-                    <textarea rows="6" cols="50" type='text' value={this.state.value} onChange={this.handleChange} />
-                    <button disabled={!this.state.textValid} type='submit' onClick={this.handleSubmit}> Send</button>
+                    <textarea rows="6" cols="50" placeholder='What you have in mind...' value={this.state.value} onChange={this.handleChange} />
+                    <button className='submitBtn' disabled={!this.state.textValid} type='submit' onClick={this.handleSubmit}> Send</button>
 
                 </div>
 

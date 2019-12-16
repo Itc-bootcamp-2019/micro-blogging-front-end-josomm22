@@ -26,4 +26,17 @@
 }
 .mainWrapper{
     padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+.messageInput{
+    width: 50%;
+    position: relative;
+}
+.submitBtn{
+    position: absolute;
+    bottom: 11px;
+    right: 30px;
+}
+
