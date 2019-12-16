@@ -2,6 +2,7 @@ import React from 'react';
 import { setStorage, getStorage } from './Storage'
 import '../css/messages.css'
 
+let userName = 'Johny';
 class messageObj {
     constructor(id, login, createdOn, content) {
         this.id = id;
@@ -17,7 +18,7 @@ class Messages extends React.Component {
         this.state = {
             value: '',
             messages: [],
-            textValid: false,
+            textValid: true,
             idCounter: 0
         }
         // this.messages = []
@@ -40,7 +41,8 @@ class Messages extends React.Component {
     }
     handleSubmit() {
         const { messages } = this.state;
-        let newMessageArr = [...messages, new messageObj('1', 'majo', '1111', this.state.value)]
+        let date = (new Date()).toISOString();
+        let newMessageArr = [...messages, new messageObj('1', userName, date, this.state.value)]
         this.setState({ messages: newMessageArr })
         setStorage(newMessageArr);
 
@@ -48,11 +50,8 @@ class Messages extends React.Component {
     }
     validateField( value) {
         let textValid = this.state.textValid;
-        console.log(textValid);
-
-        textValid = (value.length >= 6 ? true : false);
+        textValid = (value.length <= 140 ? true : false);
             
-        
         this.setState({
             textValid: textValid,
         });
