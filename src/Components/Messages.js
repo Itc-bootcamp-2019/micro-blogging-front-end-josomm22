@@ -17,6 +17,7 @@ class Messages extends React.Component {
         this.state = {
             value: '',
             messages: [],
+            textValid: false,
             idCounter: 0
         }
         // this.messages = []
@@ -30,7 +31,12 @@ class Messages extends React.Component {
 
     }
     handleChange(event) {
-        this.setState({ value: event.target.value })
+        let value = event.target.value
+        this.setState({ value: value },
+            () => { this.validateField(value) }
+            );
+        
+
     }
     handleSubmit() {
         const { messages } = this.state;
@@ -40,7 +46,36 @@ class Messages extends React.Component {
 
 
     }
-    Messagebubble(props) {
+    validateField( value) {
+        let textValid = this.state.textValid;
+        console.log(textValid);
+
+        textValid = (value.length >= 6 ? true : false);
+            
+        
+        this.setState({
+            textValid: textValid,
+        });
+    }
+
+    render() {
+        const { messages } = this.state;
+        return (
+            <div className='mainWrapper'>
+                <div className='messageInput'>
+                    <textarea rows="6" cols="50" type='text' value={this.state.value} onChange={this.handleChange} />
+                    <button disabled={!this.state.textValid} type='submit' onClick={this.handleSubmit}> Send</button>
+
+                </div>
+
+                <div className='messageArea'>
+                    {messages.map(obj => <Messagebubble key= {this.state.idCounter} login= {obj.login} createdOn= {obj.createdOn} content={obj.content} />)}
+                </div>
+            </div>
+        )
+    }
+}
+const Messagebubble = (props)=>{
 
         return (
             <div className='bubble'>
@@ -56,24 +91,7 @@ class Messages extends React.Component {
             </div>
 
         )
-    }
-
-    render() {
-        const { messages } = this.state;
-        return (
-            <div className='mainWrapper'>
-                <div className='messageInput'>
-                    <textarea rows="4" cols="50" type='text' value={this.state.value} onChange={this.handleChange} />
-                    <button type='submit' onClick={this.handleSubmit}> Send</button>
-
-                </div>
-
-                <div className='messageArea'>
-                    {messages.map(obj => <this.Messagebubble key= {this.state.idCounter} login= {obj.login} createdOn= {obj.createdOn} content={obj.content} />)}
-                </div>
-            </div>
-        )
-    }
+    
 }
 
 export default Messages;

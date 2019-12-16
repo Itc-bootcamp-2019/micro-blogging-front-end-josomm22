@@ -1,7 +1,29 @@
+.App{
+    display: flex;
+    flex-direction: column;
+
+}
+.navBar{
+    display: flex;
+    justify-content: center;
+}
+.centerNav{
+    width: 56%;
+    background-color: chocolate;
+    display: flex;
+    height: 40px;
+    border-radius: 3px;
+
+}
+.button{
+    margin-left: 30px;
+}
 .messageArea{
     display: flex;
     flex-direction: column-reverse;
 }
 .bubble{
-    width: 66%;
+}
+.mainWrapper{
+    padding-top: 20px;
 }
