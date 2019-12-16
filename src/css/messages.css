@@ -1,0 +1,7 @@
+.messageArea{
+    display: flex;
+    flex-direction: column-reverse;
+}
+.bubble{
+    width: 66%;
+}

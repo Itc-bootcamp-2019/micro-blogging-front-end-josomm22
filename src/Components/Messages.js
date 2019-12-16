@@ -1,5 +1,6 @@
 import React from 'react';
 import { setStorage, getStorage } from './Storage'
+import '../css/messages.css'
 
 class messageObj {
     constructor(id, login, createdOn, content) {
@@ -31,18 +32,18 @@ class Messages extends React.Component {
     handleChange(event) {
         this.setState({ value: event.target.value })
     }
-    handleSubmit(event) {
+    handleSubmit() {
         const { messages } = this.state;
-       // this.setState({ value: event.target.value })
-        this.setState({ messages: [...messages, new messageObj('1', 'majo', '1111', this.state.value)] })
-        setStorage(messages);
+        let newMessageArr = [...messages, new messageObj('1', 'majo', '1111', this.state.value)]
+        this.setState({ messages: newMessageArr })
+        setStorage(newMessageArr);
 
 
     }
     Messagebubble(props) {
-        
+
         return (
-            <div>
+            <div className='bubble'>
                 <p>{props.content}</p>
                 <p>
                     <span>
@@ -67,7 +68,7 @@ class Messages extends React.Component {
 
                 </div>
 
-                <div>
+                <div className='messageArea'>
                     {messages.map(obj => <this.Messagebubble key= {this.state.idCounter} login= {obj.login} createdOn= {obj.createdOn} content={obj.content} />)}
                 </div>
             </div>
