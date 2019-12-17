@@ -21,13 +21,15 @@ class Messages extends React.Component {
             textValid: true,
             idCounter: 0,
             isLoading: true,
-            isSending: false
+            isSending: false,
+            hasError: false,
+            errorMessage: 'bababa'
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-     componentDidMount() {
-         getTweets().then((value) => {
+    componentDidMount() {
+        getTweets().then((value) => {
             const tweetArray = sortDescending(value.data.tweets);
             this.setState({ messages: tweetArray, isLoading: false });
         },
@@ -42,34 +44,46 @@ class Messages extends React.Component {
 
     }
     handleSubmit() {
-        const { messages,isSending } = this.state;
+        const { messages } = this.state;
         let date = (new Date()).toISOString();
         let newMessageObj = new messageObj(userName, date, this.state.value)
-        let newMessageArr = [...messages, newMessageObj]
-        this.setState({ messages: newMessageArr, isSending:true })
-        sendTweet(newMessageObj).then(error => {
-            this.setState({isSending:false});
+        this.setState({ isSending: true })
+        sendTweet(newMessageObj).then(() => {
+            let newMessageArr = [...messages, newMessageObj]
+            this.setState({ messages: newMessageArr,isSending: false, value: '' });
 
-        });
+        })
+        .catch(error => {
+            console.log(error);
+            this.setState({ isSending: false});
+
+        }
+
+        );
 
 
     }
     validateField(value) {
+        const {hasError} = this.state;
         let textValid = this.state.textValid;
         textValid = (value.length <= 140 ? true : false);
+        if (hasError){
+            this.setState({errorMessage: "The tweet can\'t contain more than 140 chars"})
+        }
 
         this.setState({
-            textValid: textValid,
+            textValid: textValid,hasError:!textValid
         });
     }
 
     render() {
-        const { messages, isLoading, textValid, isSending } = this.state;
+        const { messages, isLoading, textValid, isSending, errorMessage,hasError, idCounter} = this.state;
         return (
             <div className='mainWrapper'>
                 <div className='messageInput'>
                     <textarea rows="6" cols="80" placeholder='What you have in mind...' value={this.state.value} onChange={this.handleChange} />
-                    <button className='submitBtn' disabled={!textValid ||isSending } type='submit' onClick={this.handleSubmit}> Send</button>
+                    {hasError && <h3>{errorMessage}</h3>}
+                    <button className='submitBtn' disabled={!textValid || isSending} type='submit' onClick={this.handleSubmit}> Send</button>
 
                 </div>
 
@@ -77,7 +91,7 @@ class Messages extends React.Component {
                     {isLoading && <h5>Loading...</h5>}
                     {!isLoading
                         &&
-                        messages.map(obj => <Messagebubble key={this.state.idCounter} login={obj.userName} createdOn={obj.date} content={obj.content} />)}
+                        messages.map((obj, index) => <Messagebubble key={index} login={obj.userName} createdOn={obj.date} content={obj.content} />)}
                 </div>
             </div>
         )
@@ -86,7 +100,7 @@ class Messages extends React.Component {
 const Messagebubble = (props) => {
 
     return (
-        <div className='bubble'>
+        <div id = {props.key} className='bubble'>
             <p>{props.content}</p>
             <p>
                 <span>
