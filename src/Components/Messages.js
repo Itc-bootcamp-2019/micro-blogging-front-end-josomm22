@@ -1,6 +1,6 @@
 import React from 'react';
 import { setStorage, getStorage } from './Storage';
-import {getTweets, sendTweet} from './api/api';
+import { getTweets, sendTweet, sortDescending } from './api/api';
 import '../css/messages.css';
 
 let userName = 'Johny';
@@ -19,79 +19,87 @@ class Messages extends React.Component {
             value: '',
             messages: [],
             textValid: true,
-            idCounter: 0
+            idCounter: 0,
+            isLoading: true,
+            isSending: false
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-    async componentDidMount() {
-       await getTweets().then((value) =>{
-            const tweetArray = value.data.tweets
-            this.setState({messages : tweetArray});
-          },
-        )        
+     componentDidMount() {
+         getTweets().then((value) => {
+            const tweetArray = sortDescending(value.data.tweets);
+            this.setState({ messages: tweetArray, isLoading: false });
+        },
+        )
 
     }
     handleChange(event) {
         let value = event.target.value
         this.setState({ value: value },
             () => { this.validateField(value) }
-            );
-        
+        );
+
     }
     handleSubmit() {
-        const { messages } = this.state;
+        const { messages,isSending } = this.state;
         let date = (new Date()).toISOString();
         let newMessageObj = new messageObj(userName, date, this.state.value)
         let newMessageArr = [...messages, newMessageObj]
-        this.setState({ messages: newMessageArr })
-        sendTweet(newMessageObj);
+        this.setState({ messages: newMessageArr, isSending:true })
+        sendTweet(newMessageObj).then(error => {
+            this.setState({isSending:false});
+
+        });
 
 
     }
-    validateField( value) {
+    validateField(value) {
         let textValid = this.state.textValid;
         textValid = (value.length <= 140 ? true : false);
-            
+
         this.setState({
             textValid: textValid,
         });
     }
 
     render() {
-        const { messages } = this.state;
+        const { messages, isLoading, textValid, isSending } = this.state;
         return (
             <div className='mainWrapper'>
                 <div className='messageInput'>
                     <textarea rows="6" cols="80" placeholder='What you have in mind...' value={this.state.value} onChange={this.handleChange} />
-                    <button className='submitBtn' disabled={!this.state.textValid} type='submit' onClick={this.handleSubmit}> Send</button>
+                    <button className='submitBtn' disabled={!textValid ||isSending } type='submit' onClick={this.handleSubmit}> Send</button>
 
                 </div>
 
                 <div className='messageArea'>
-                    {messages.map(obj => <Messagebubble key= {this.state.idCounter} login= {obj.userName} createdOn= {obj.date} content={obj.content} />)}
+                    {isLoading && <h5>Loading...</h5>}
+                    {!isLoading
+                        &&
+                        messages.map(obj => <Messagebubble key={this.state.idCounter} login={obj.userName} createdOn={obj.date} content={obj.content} />)}
                 </div>
             </div>
         )
     }
 }
-const Messagebubble = (props)=>{
+const Messagebubble = (props) => {
 
-        return (
-            <div className='bubble'>
-                <p>{props.content}</p>
-                <p>
-                    <span>
-                        User: {props.login}
-                    </span>
-                    <span>
-                         Created on: {props.createdOn}
-                    </span>
-                </p>
-            </div>
+    return (
+        <div className='bubble'>
+            <p>{props.content}</p>
+            <p>
+                <span>
+                    User: {props.login}
+                </span>
+                <span>
+                    Created on: {props.createdOn}
+                </span>
+            </p>
+        </div>
 
-        )
-    
+    )
+
 }
 
 export default Messages;
