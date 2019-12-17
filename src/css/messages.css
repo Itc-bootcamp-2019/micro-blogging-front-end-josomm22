@@ -11,7 +11,7 @@
     width: 56%;
     background-color: chocolate;
     display: flex;
-    height: 40px;
+    height: 58px;
     border-radius: 3px;
 
 }
@@ -31,11 +31,14 @@
     align-items: center;
 }
 textarea{
-    width: 600px;
-    height: 180px;
+    overflow: hidden;
+    
 }
 .messageInput{
     position: relative;
+    width: 600px;
+    height: 180px;
+    border: 1px solid black;
 }
 .submitBtn{
     position: absolute;
