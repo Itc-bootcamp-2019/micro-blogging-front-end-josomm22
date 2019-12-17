@@ -50,34 +50,34 @@ class Messages extends React.Component {
         this.setState({ isSending: true })
         sendTweet(newMessageObj).then(() => {
             let newMessageArr = [...messages, newMessageObj]
-            this.setState({ messages: newMessageArr,isSending: false, value: '' });
+            this.setState({ messages: newMessageArr, isSending: false, value: '' });
 
         })
-        .catch(error => {
-            console.log(error);
-            this.setState({ isSending: false});
+            .catch(error => {
+                console.log(error);
+                this.setState({ isSending: false });
 
-        }
+            }
 
-        );
+            );
 
 
     }
     validateField(value) {
-        const {hasError} = this.state;
+        const { hasError } = this.state;
         let textValid = this.state.textValid;
         textValid = (value.length <= 140 ? true : false);
-        if (hasError){
-            this.setState({errorMessage: "The tweet can\'t contain more than 140 chars"})
+        if (hasError) {
+            this.setState({ errorMessage: "The tweet can\'t contain more than 140 chars" })
         }
 
         this.setState({
-            textValid: textValid,hasError:!textValid
+            textValid: textValid, hasError: !textValid
         });
     }
 
     render() {
-        const { messages, isLoading, textValid, isSending, errorMessage,hasError, idCounter} = this.state;
+        const { messages, isLoading, textValid, isSending, errorMessage, hasError, idCounter } = this.state;
         return (
             <div className='mainWrapper'>
                 <div className='messageInput'>
@@ -100,16 +100,22 @@ class Messages extends React.Component {
 const Messagebubble = (props) => {
 
     return (
-        <div id = {props.key} className='bubble'>
-            <p>{props.content}</p>
-            <p>
-                <span>
-                    User: {props.login}
-                </span>
-                <span>
-                    Created on: {props.createdOn}
-                </span>
-            </p>
+        <div id={props.key} className='bubble'>
+            <div className='bubbleSection'>
+                <p>{props.content}</p>
+            </div>
+            <div className='bubbleSection'>
+                <div id='login' className='bubbleDetails'>
+                    <span>
+                        User: {props.login}
+                    </span>
+                </div>
+                <div id='date' className='bubbleDetails'>
+                    <span>
+                        Created on: {props.createdOn}
+                    </span>
+                </div>
+            </div>
         </div>
 
     )

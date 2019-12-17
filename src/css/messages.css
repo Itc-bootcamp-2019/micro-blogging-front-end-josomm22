@@ -1,7 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 .App{
     display: flex;
     flex-direction: column;
+    background-color: #15202B;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    font-family: 'Roboto', sans-serif;
 
+
+
+}
+p, span{
+    color: #FFFF;
 }
 .navBar{
     display: flex;
@@ -9,21 +20,45 @@
 }
 .centerNav{
     width: 56%;
-    background-color: chocolate;
+    background-color: #343A40;;
     display: flex;
     height: 58px;
-    border-radius: 3px;
+    border-radius: 6px;
 
 }
 .button{
     margin-left: 30px;
+    
+}
+.button a {
+    position: relative;
+    top: 25%;
+    text-decoration: none;
 }
 .messageArea{
     display: flex;
     flex-direction: column-reverse;
 }
 .bubble{
+    background-color: #343A40;
+    border-radius: 6px;
+    min-height: 84px;
+    width: 600px;
+    margin-top: 15px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
 }
+.bubbleSection{
+    display: flex;
+    justify-content: space-between;
+
+}
+.bubbleDetails span{
+    color: #6C757D;
+}
+
 .mainWrapper{
     padding-top: 20px;
     display: flex;
@@ -31,18 +66,39 @@
     align-items: center;
 }
 textarea{
+    width: 100%;
     overflow: hidden;
+    outline: none;
+    resize: none;
+    background-color: #15202B;
+    border: none;
+    color: #FFFF;
+    font-family: 'Roboto', sans-serif;
+
     
+}
+textarea::placeholder{
+    color: #CCCCCC;
 }
 .messageInput{
     position: relative;
     width: 600px;
     height: 180px;
     border: 1px solid black;
+    padding: 25px 16px;
+    box-sizing: border-box;
 }
 .submitBtn{
     position: absolute;
+    width: 68px;
+    height: 34px;
     bottom: 11px;
     right: 30px;
+    background: #007BFF;
+    border: none;
+    border-radius: 4px;
+    color: #FFFF;
+    font-family: 'Roboto', sans-serif;
+
 }
 
