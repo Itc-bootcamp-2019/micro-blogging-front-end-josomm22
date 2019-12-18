@@ -1,9 +1,9 @@
 import React from 'react';
 import { getUserName } from '../lib/Storage';
-import { getTweets, sendTweet, sortDescending } from '../Components/api/api';
+import { getTweets, sendTweet, sortDescending } from '../api/api';
+import {Messagebubble} from '../Components/MessageBubble';
 import '../css/messages.css';
 
-// let userName = getUserName();
 class messageObj {
     constructor(userName, date, content) {
         this.userName = userName;
@@ -107,30 +107,6 @@ class Messages extends React.Component {
             </div>
         )
     }
-}
-const Messagebubble = (props) => {
-
-    return (
-        <div id={props.key} className='bubble'>
-            <div className='bubbleSection'>
-                <div id='login' className='bubbleDetails'>
-                    <span>
-                        {props.login}
-                    </span>
-                </div>
-                <div id='date' className='bubbleDetails'>
-                    <span>
-                        {props.createdOn}
-                    </span>
-                </div>
-            </div>
-            <div className='bubbleSection'>
-                <p>{props.content}</p>
-            </div>
-        </div>
-
-    )
-
 }
 
 export default Messages;

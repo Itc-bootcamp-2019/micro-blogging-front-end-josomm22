@@ -1,16 +1,12 @@
 import React from 'react';
 import './App.css';
-import Messages from './pages/Messages'
+import Messages from './pages/Message'
 import Navbar from './Components/Navbar';
 import Profile from './pages/Profile';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link,
-  useLocation,
-  useRouteMatch,
-  useParams
+  Route
 } from "react-router-dom";
 
 function App() {
