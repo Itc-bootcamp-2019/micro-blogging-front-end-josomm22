@@ -25,3 +25,18 @@ export function setStorage(messagesArr) {
     let messageString = JSON.stringify(messagesArr);
     localStorage.setItem('faketweet', messageString);
 }
+export function getUserName(){
+    let retrievedName = localStorage.getItem('userName')
+    if (retrievedName != null) {
+        retrievedName = JSON.parse(retrievedName);
+        return retrievedName;
+    } else {
+        return 'Anonymous';
+
+
+    }
+}
+export function setUserName(userName){
+    let userNameString = JSON.stringify(userName);
+    localStorage.setItem('userName', userNameString);
+}

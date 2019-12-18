@@ -1,9 +1,9 @@
 import React from 'react';
-import { setStorage, getStorage } from './Storage';
+import { getUserName } from '../lib/Storage';
 import { getTweets, sendTweet, sortDescending } from './api/api';
 import '../css/messages.css';
 
-let userName = 'Johny';
+// let userName = getUserName();
 class messageObj {
     constructor(userName, date, content) {
         this.userName = userName;
@@ -23,12 +23,14 @@ class Messages extends React.Component {
             isLoading: true,
             isSending: false,
             hasError: false,
-            errorMessage: 'bababa'
+            errorMessage: 'bababa',
+            userName : ''
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount() {
+        this.setState({userName : getUserName()});
         getTweets().then((value) => {
             const tweetArray = sortDescending(value.data.tweets);
             this.setState({ messages: tweetArray, isLoading: false });
@@ -44,7 +46,7 @@ class Messages extends React.Component {
 
     }
     handleSubmit() {
-        const { messages } = this.state;
+        const { messages, userName} = this.state;
         let date = (new Date()).toISOString();
         let newMessageObj = new messageObj(userName, date, this.state.value)
         this.setState({ isSending: true })
