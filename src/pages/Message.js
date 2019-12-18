@@ -94,7 +94,10 @@ class Messages extends React.Component {
                 <div className='messageInput inputBox'>
                     <textarea rows="6" cols="80" placeholder='What you have in mind...' value={value} onChange={this.handleChange} />
                     {hasError && <div className='errorMessage'><h3>{errorMessage}</h3> </div>}
-                    <button className='btn submitTweet' disabled={!textValid || isSending} type='submit' onClick={this.handleSubmit}> Send</button>
+                    <button className='btn submitTweet' disabled={!textValid || isSending} type='submit' onClick={this.handleSubmit}>
+                         {isSending && 'sending'}
+                         {!isSending && 'Send'}
+                         </button>
 
                 </div>
 

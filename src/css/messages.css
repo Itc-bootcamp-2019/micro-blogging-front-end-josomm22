@@ -50,6 +50,9 @@ p, span{
     display: flex;
     flex-direction: column-reverse;
 }
+.messageArea h5{
+    color: #FFFF;
+}
 .errorMessage{
     display: inline-block;
     background-color: #F8D7DA;
