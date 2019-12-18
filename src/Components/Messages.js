@@ -59,7 +59,7 @@ class Messages extends React.Component {
 
             }
 
-        );
+            );
 
 
     }
@@ -71,21 +71,20 @@ class Messages extends React.Component {
         if (hasError) {
             this.setState({ errorMessage: "The tweet can\'t contain more than 140 chars" })
         }
-
         this.setState({
             textValid: textValid, hasError: !textValid
         });
     }
 
     render() {
-        const { messages, isLoading, textValid, isSending, errorMessage, hasError, idCounter, value } = this.state;
+        const { messages, isLoading, textValid, isSending, errorMessage, hasError, value } = this.state;
         // const { isValid, hasError } = this.validateField(value)
         return (
             <div className='mainWrapper'>
-                <div className='messageInput'>
-                    <textarea rows="6" cols="80" placeholder='What you have in mind...' value={this.state.value} onChange={this.handleChange} />
-                    {hasError && <h3>{errorMessage}</h3>}
-                    <button className='submitBtn' disabled={!textValid || isSending} type='submit' onClick={this.handleSubmit}> Send</button>
+                <div className='messageInput inputBox'>
+                    <textarea rows="6" cols="80" placeholder='What you have in mind...' value={value} onChange={this.handleChange} />
+                    {hasError && <div className='errorMessage'><h3>{errorMessage}</h3> </div>}
+                    <button className='btn submitTweet' disabled={!textValid || isSending} type='submit' onClick={this.handleSubmit}> Send</button>
 
                 </div>
 
@@ -106,12 +105,12 @@ const Messagebubble = (props) => {
             <div className='bubbleSection'>
                 <div id='login' className='bubbleDetails'>
                     <span>
-                        User: {props.login}
+                        {props.login}
                     </span>
                 </div>
                 <div id='date' className='bubbleDetails'>
                     <span>
-                        Created on: {props.createdOn}
+                        {props.createdOn}
                     </span>
                 </div>
             </div>
