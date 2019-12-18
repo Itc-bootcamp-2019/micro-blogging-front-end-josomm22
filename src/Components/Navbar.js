@@ -11,20 +11,18 @@ import {
 
 const Navbar = () => {
     return (
-        <Router>
-            <div className='navBar'>
-                <div className='centerNav'>
-                    <div className='button'>
-                        <Link to = "/"> Home </Link>
-                    </div>
-                    <div className='button'>
-                        <Link to="/profile">
-                            Profile
-                </Link>
-                    </div>
+        <div className='navBar'>
+            <div className='centerNav'>
+                <div className='button'>
+                    <Link to="/"> Home </Link>
+                </div>
+                <div className='button'>
+                    <Link to="/profile">
+                        Profile
+                    </Link>
                 </div>
             </div>
-                </Router>
-            )
+        </div>
+    )
 }
 export default Navbar;

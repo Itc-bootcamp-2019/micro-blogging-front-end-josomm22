@@ -39,7 +39,7 @@ class Messages extends React.Component {
     handleChange(event) {
         let value = event.target.value
         this.setState({ value: value },
-            () => { this.validateField(value) }
+            () => { this.validateField(value) }  //remove this callback
         );
 
     }
@@ -59,10 +59,11 @@ class Messages extends React.Component {
 
             }
 
-            );
+        );
 
 
     }
+    //try to get rid of validatefield and set in render
     validateField(value) {
         const { hasError } = this.state;
         let textValid = this.state.textValid;
@@ -77,7 +78,8 @@ class Messages extends React.Component {
     }
 
     render() {
-        const { messages, isLoading, textValid, isSending, errorMessage, hasError, idCounter } = this.state;
+        const { messages, isLoading, textValid, isSending, errorMessage, hasError, idCounter, value } = this.state;
+        // const { isValid, hasError } = this.validateField(value)
         return (
             <div className='mainWrapper'>
                 <div className='messageInput'>
@@ -102,9 +104,6 @@ const Messagebubble = (props) => {
     return (
         <div id={props.key} className='bubble'>
             <div className='bubbleSection'>
-                <p>{props.content}</p>
-            </div>
-            <div className='bubbleSection'>
                 <div id='login' className='bubbleDetails'>
                     <span>
                         User: {props.login}
@@ -115,6 +114,9 @@ const Messagebubble = (props) => {
                         Created on: {props.createdOn}
                     </span>
                 </div>
+            </div>
+            <div className='bubbleSection'>
+                <p>{props.content}</p>
             </div>
         </div>
 

@@ -13,6 +13,7 @@
 }
 p, span{
     color: #FFFF;
+    font-size: 16px;
 }
 .navBar{
     display: flex;
@@ -34,6 +35,14 @@ p, span{
     position: relative;
     top: 25%;
     text-decoration: none;
+    color: rgba(255, 255, 255, 0.5);
+}
+.button a:visited{
+text-decoration: none;
+color: rgba(255, 255, 255, 0.5);
+}
+.button a:focus{
+    color: #FFFF;
 }
 .messageArea{
     display: flex;
@@ -84,7 +93,8 @@ textarea::placeholder{
     position: relative;
     width: 600px;
     height: 180px;
-    border: 1px solid black;
+    border: 2px solid #CCCC;
+    border-radius: 6px;
     padding: 25px 16px;
     box-sizing: border-box;
 }
