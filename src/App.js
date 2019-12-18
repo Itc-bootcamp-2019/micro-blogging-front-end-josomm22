@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
-import Messages from './Components/Messages'
+import Messages from './pages/Messages'
 import Navbar from './Components/Navbar';
-import Profile from './Components/Profile';
+import Profile from './pages/Profile';
 import {
   BrowserRouter as Router,
   Switch,

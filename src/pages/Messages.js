@@ -1,6 +1,6 @@
 import React from 'react';
 import { getUserName } from '../lib/Storage';
-import { getTweets, sendTweet, sortDescending } from './api/api';
+import { getTweets, sendTweet, sortDescending } from '../Components/api/api';
 import '../css/messages.css';
 
 // let userName = getUserName();
