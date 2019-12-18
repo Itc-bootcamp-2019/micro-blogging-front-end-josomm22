@@ -106,9 +106,10 @@ textarea{
     resize: none;
     background-color: #15202B;
     border: none;
-    color: #FFFF;
     font-family: 'Roboto', sans-serif;
-
+    font-size: 16px;
+    line-height: 19px;
+    color: #CCCCCC;
     
 }
 textarea::placeholder{
