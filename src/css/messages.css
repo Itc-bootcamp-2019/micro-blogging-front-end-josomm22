@@ -40,8 +40,8 @@ p, span{
     color: rgba(255, 255, 255, 0.5);
 }
 .button a:visited{
-text-decoration: none;
-color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.5);
 }
 .button a:focus{
     color: #FFFF;
@@ -62,14 +62,14 @@ color: rgba(255, 255, 255, 0.5);
 }
 .errorMessage h3{
     font-family: Roboto;
-font-style: normal;
-font-weight: normal;
-font-size: 16px;
-line-height: 19px;
-display: flex;
-align-items: center;
-text-align: center;
-margin: 0;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 0;
 
 color: #721C24;
 }
@@ -145,4 +145,8 @@ textarea::placeholder{
 .submitTweet:disabled{
     color: gray;
 }
-
+.flexRight{
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+}

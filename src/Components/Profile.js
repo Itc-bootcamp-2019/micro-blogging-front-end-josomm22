@@ -1,4 +1,5 @@
 import React from 'react';
+import '../css/profile.css';
 
 class Profile extends React.Component {
     constructor(props) {
@@ -13,10 +14,12 @@ class Profile extends React.Component {
                 <h1>Profile</h1>
                 <div className='inputContainer'>
                     <h5>User Name</h5>
-                    <div className='profileInput'>
+                    <div className='profileInput inputBox'>
                         <input type='text' />
                     </div>
-                    <button className='btn saveProfile'>Save</button>
+                    <div className='flexRight'>
+                        <button className='btn saveProfile'>Save</button>
+                    </div>
                 </div>
             </div>
         )
