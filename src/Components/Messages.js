@@ -31,6 +31,13 @@ class Messages extends React.Component {
     }
     componentDidMount() {
         this.setState({userName : getUserName()});
+        this.loadTweets();
+        setInterval(() => {
+            this.loadTweets();
+
+        }, 10000);
+    }
+    loadTweets(){
         getTweets().then((value) => {
             const tweetArray = sortDescending(value.data.tweets);
             this.setState({ messages: tweetArray, isLoading: false });
@@ -38,6 +45,7 @@ class Messages extends React.Component {
         )
 
     }
+    
     handleChange(event) {
         let value = event.target.value
         this.setState({ value: value },

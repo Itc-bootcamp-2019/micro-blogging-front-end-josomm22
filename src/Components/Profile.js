@@ -1,5 +1,5 @@
 import React from 'react';
-import { setUserName } from '../lib/Storage';
+import { setUserName, getUserName } from '../lib/Storage';
 
 import '../css/profile.css';
 
@@ -12,6 +12,10 @@ class Profile extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     };
+    componentDidMount(){
+        this.setState({value : getUserName()});
+
+    }
     handleChange(event) {
         let value = event.target.value
         this.setState({ value: value },
