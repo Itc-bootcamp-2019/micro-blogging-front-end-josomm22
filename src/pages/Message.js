@@ -1,6 +1,6 @@
 import React from 'react';
 import { getUserName } from '../lib/Storage';
-import { getTweets, sendTweet, sortDescending } from '../api/api';
+import { getTweets, sendTweet, sortDescending, sendTweetToDB,loadMessagesfromDB } from '../api/api';
 import {Messagebubble} from '../Components/MessageBubble';
 import '../css/messages.css';
 
@@ -10,7 +10,7 @@ class messageObj {
         this.date = date;
         this.content = content;
     }
-}
+};
 class Messages extends React.Component {
 
     constructor(props) {
@@ -38,7 +38,9 @@ class Messages extends React.Component {
         }, 10000);
     }
     loadTweets(){
+        console.log(loadMessagesfromDB());
         getTweets().then((value) => {
+            // console.log(loadMessagesfromDB());
             const tweetArray = sortDescending(value.data.tweets);
             this.setState({ messages: tweetArray, isLoading: false });
         },
@@ -58,7 +60,7 @@ class Messages extends React.Component {
         let date = (new Date()).toISOString();
         let newMessageObj = new messageObj(userName, date, this.state.value)
         this.setState({ isSending: true })
-        sendTweet(newMessageObj).then(() => {
+        sendTweetToDB(newMessageObj).then(() => {
             let newMessageArr = [...messages, newMessageObj]
             this.setState({ messages: newMessageArr, isSending: false, value: '' });
 
