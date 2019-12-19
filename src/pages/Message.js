@@ -38,10 +38,9 @@ class Messages extends React.Component {
         }, 10000);
     }
     loadTweets(){
-        console.log(loadMessagesfromDB());
-        getTweets().then((value) => {
-            // console.log(loadMessagesfromDB());
-            const tweetArray = sortDescending(value.data.tweets);
+        // console.log(loadMessagesfromDB());
+        loadMessagesfromDB().then((value) => {
+            const tweetArray = sortDescending(value);
             this.setState({ messages: tweetArray, isLoading: false });
         },
         )
