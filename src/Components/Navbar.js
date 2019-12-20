@@ -2,22 +2,23 @@ import React from 'react';
 import {
     BrowserRouter as Router,
     Link,
+    NavLink,
 } from "react-router-dom";
 
 const Navbar = () => {
     return (
-        <div className='navBar'>
+        <nav className='navBar'>
             <div className='centerNav'>
                 <div className='button'>
-                    <Link to="/"> Home </Link>
+                    <NavLink exact={true} activeClassName="is-Active" to="/"> Home </NavLink>
                 </div>
                 <div className='button'>
-                    <Link to="/profile">
+                    <NavLink activeClassName="is-Active" to="/profile">
                         Profile
-                    </Link>
+                    </NavLink>
                 </div>
             </div>
-        </div>
+        </nav>
     )
 }
 export default Navbar;
