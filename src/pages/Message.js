@@ -1,6 +1,6 @@
 import React from 'react';
 import { getUserName } from '../lib/Storage';
-import { getTweets, sendTweet, sortDescending, sendTweetToDB,loadMessagesfromDB } from '../api/api';
+import { sortDescending, sendTweetToDB,loadMessagesfromDB } from '../api/api';
 import {Messagebubble} from '../Components/MessageBubble';
 import '../css/messages.css';
 
@@ -97,7 +97,7 @@ class Messages extends React.Component {
                     {hasError && <div className='errorMessage'><h3>{errorMessage}</h3> </div>}
                     <button className='btn submitTweet' disabled={!textValid || isSending} type='submit' onClick={this.handleSubmit}>
                          {isSending && 'sending'}
-                         {!isSending && 'Send'}
+                         {!isSending && 'tweet'}
                          </button>
 
                 </div>

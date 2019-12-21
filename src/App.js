@@ -8,6 +8,7 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import Login from './pages/login'
 
 function App() {
   
@@ -23,6 +24,7 @@ function App() {
             <Messages />
           </Route>
         </Switch>
+        <Login/>
       </div>
     </Router>
   );
