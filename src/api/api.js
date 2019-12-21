@@ -26,7 +26,7 @@ export function loadMessagesfromDB() {
     let messages = [];
     var query = firebase.firestore()
         .collection('tweets')
-        .orderBy('date')
+        .orderBy('date','desc')
         .limit(10);
 
     // Start listening to the query.
@@ -52,19 +52,3 @@ export function loadMessagesfromDB() {
 })
 
 }
-
-// export function loadMessagesfromDB() {
-//     let messages = [];
-//     firebase
-//         .firestore()
-//         .collection('tweets')
-//         .orderBy('date')
-//         .limit(10)
-//         .onSnapshot((snapshot) => {
-//             debugger
-
-
-
-//         })
-
-// }

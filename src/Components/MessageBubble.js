@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 export const Messagebubble = (props) => {
-
+    const [count,setcount] = useState(0)
     return (
-        <div id={props.key} className='bubble'>
+        <div id={()=>setcount(count+1)} className='bubble'>
             <div className='bubbleSection'>
                 <div id='login' className='bubbleDetails'>
                     <span>
