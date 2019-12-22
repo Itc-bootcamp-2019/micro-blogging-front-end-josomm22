@@ -4,6 +4,9 @@ import {
     Link,
     NavLink,
 } from "react-router-dom";
+import "firebase/auth";
+import * as firebase from 'firebase/app';
+
 
 const Navbar = () => {
     return (
@@ -17,6 +20,13 @@ const Navbar = () => {
                         Profile
                     </NavLink>
                 </div>
+                  <button
+          onClick={() => {
+            firebase.auth().signOut();
+          }}
+        >
+          Sign Out
+        </button>
             </div>
         </nav>
     )

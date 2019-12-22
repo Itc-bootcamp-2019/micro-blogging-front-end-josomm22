@@ -32,10 +32,10 @@ class Messages extends React.Component {
     componentDidMount() {
         this.setState({userName : getUserName()});
         this.loadTweets();
-        setInterval(() => {
-            this.loadTweets();
+        // setInterval(() => {
+        //     this.loadTweets();
 
-        }, 10000);
+        // }, 10000);
     }
     loadTweets(){
         // console.log(loadMessagesfromDB());
