@@ -23,6 +23,7 @@ import config from './config'
 
 
 function App() {
+
   return (
 
     <FirebaseAuthProvider {...config} firebase={firebase}>
@@ -33,14 +34,16 @@ function App() {
             <SignInScreen />
           </IfFirebaseUnAuthed>
           <IfFirebaseAuthed>
-            <Switch>
-              <Route path="/profile">
-                <Profile />
-              </Route>
-              <Route exact path="/">
-                <Messages />
-              </Route>
-            </Switch>
+            <FirebaseAuthConsumer>
+              <Switch>
+                <Route path="/profile">
+                  <Profile />
+                </Route>
+                <Route exact path="/">
+                  <Messages />
+                </Route>
+              </Switch>
+            </FirebaseAuthConsumer>
           </IfFirebaseAuthed>
         </div>
       </Router>

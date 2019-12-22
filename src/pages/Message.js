@@ -2,6 +2,8 @@ import React from 'react';
 import { getUserName } from '../lib/Storage';
 import { sortDescending, sendTweetToDB,loadMessagesfromDB } from '../api/api';
 import {Messagebubble} from '../Components/MessageBubble';
+import firebase from 'firebase/app';
+
 import '../css/messages.css';
 
 class messageObj {
@@ -25,12 +27,13 @@ class Messages extends React.Component {
             hasError: false,
             errorMessage: 'bababa',
             userName : ''
-        }
+        };
+        this.user = firebase.auth().currentUser;
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount() {
-        this.setState({userName : getUserName()});
+        this.setState({userName : this.user.displayName});
         this.loadTweets();
         // setInterval(() => {
         //     this.loadTweets();
