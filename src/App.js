@@ -24,34 +24,37 @@ import config from './config'
 
 function App() {
   return (
-    <FirebaseAuthProvider {...config} firebase={firebase}>
-<IfFirebaseUnAuthed>
-<SignInScreen/>
-</IfFirebaseUnAuthed>
-    <IfFirebaseAuthed>
-         <Router>
-       <div className="App">
-         <Navbar />
-         <Switch>
-           <Route path="/profile">
-             <Profile/>
-           </Route>
-           <Route exact path = "/">
-             <Messages />
-           </Route>
-         </Switch>
-       </div>
-     </Router>
 
-            {/* <button
+    <FirebaseAuthProvider {...config} firebase={firebase}>
+      <Router>
+        <div className="App">
+          <Navbar />
+          <IfFirebaseUnAuthed>
+            <SignInScreen />
+          </IfFirebaseUnAuthed>
+          <IfFirebaseAuthed>
+
+            <Switch>
+              <Route path="/profile">
+                <Profile />
+              </Route>
+              <Route exact path="/">
+                <Messages />
+              </Route>
+            </Switch>
+         
+
+        {/* <button
           onClick={() => {
             firebase.auth().signOut();
           }}
         >
           Sign Out
         </button> */}
-          </IfFirebaseAuthed>
-     
+      </IfFirebaseAuthed>
+      </div>
+        </Router>
+
 
 
 
