@@ -24,7 +24,7 @@ function App() {
             <Messages />
           </Route>
         </Switch>
-        <Login/>
+        {/* <Login/> */}
       </div>
     </Router>
   );
