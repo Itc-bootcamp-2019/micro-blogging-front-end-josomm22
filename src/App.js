@@ -33,7 +33,6 @@ function App() {
             <SignInScreen />
           </IfFirebaseUnAuthed>
           <IfFirebaseAuthed>
-
             <Switch>
               <Route path="/profile">
                 <Profile />
@@ -42,28 +41,10 @@ function App() {
                 <Messages />
               </Route>
             </Switch>
-         
-
-        {/* <button
-          onClick={() => {
-            firebase.auth().signOut();
-          }}
-        >
-          Sign Out
-        </button> */}
-      </IfFirebaseAuthed>
-      </div>
-        </Router>
-
-
-
-
-
-
-
-
+          </IfFirebaseAuthed>
+        </div>
+      </Router>
     </FirebaseAuthProvider>
-
   );
 }
 

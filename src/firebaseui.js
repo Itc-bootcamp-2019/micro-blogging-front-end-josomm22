@@ -12,7 +12,9 @@ const uiConfig = {
     // We will display Google and Facebook as auth providers.
     signInOptions: [
       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      firebase.auth.FacebookAuthProvider.PROVIDER_ID
+      firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+      firebase.auth.EmailAuthProvider.PROVIDER_ID,
+      
     ]
   };
   
@@ -20,7 +22,7 @@ const uiConfig = {
     render() {
       return (
         <div className='login-box'>
-          <h1>My App</h1>
+          <h1>Micro-blog</h1>
           <p>Please sign-in:</p>
           <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>
         </div>

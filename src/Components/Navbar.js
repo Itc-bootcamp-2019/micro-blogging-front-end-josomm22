@@ -20,13 +20,13 @@ const Navbar = () => {
                         Profile
                     </NavLink>
                 </div>
-                  <button
-          onClick={() => {
-            firebase.auth().signOut();
-          }}
-        >
-          Sign Out
-        </button>
+                <div className='float-right'>
+                    <button onClick={() => {
+                        firebase.auth().signOut();
+                    }}>
+                        Sign Out
+                    </button>
+                </div>
             </div>
         </nav>
     )
