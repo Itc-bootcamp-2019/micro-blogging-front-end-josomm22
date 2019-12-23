@@ -10,15 +10,18 @@ class Profile extends React.Component {
         super(props);
         this.state = {
             value: '',
-            imageURL:''
+            imageURL: '',
+            imageFile: null
         }
         this.user = firebase.auth().currentUser;
-
+        
+        this.handleImage = this.handleImage.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.convertToUrl = this.convertToUrl.bind(this);
     };
-    componentDidMount(){
-        this.setState({value : this.user.displayName, imageURL: this.user.photoURL});
+    componentDidMount() {
+        this.setState({ value: this.user.displayName, imageURL: this.user.photoURL });
         console.log(this.user)
 
 
@@ -26,38 +29,65 @@ class Profile extends React.Component {
     handleChange(event) {
         let value = event.target.value
         this.setState({ value: value },
-            console.log(value)
 
         );
 
     };
-    handleSubmit(){
+    handleSubmit() {
         const userName = this.state.value;
         this.user.updateProfile({
             displayName: userName,
-          }).then(function() {
+        }).then(function () {
             // Update successful.
-          }).catch(function(error) {
+        }).catch(function (error) {
             // An error happened.
-          });
+        });
         // setUserName(userName);
 
     };
+    handleImage(event) {
+        // Create a root reference
+        // var storageRef = firebase.storage().ref();
+
+        // // Create a reference to 'mountains.jpg'
+        // var mountainsRef = storageRef.child('mountains.jpg');
+
+        // // Create a reference to 'images/mountains.jpg'
+        // var mountainImagesRef = storageRef.child('images/mountains.jpg');
+
+        // // While the file names are the same, the references point to different files
+        // mountainsRef.name === mountainImagesRef.name            // true
+        // mountainsRef.fullPath === mountainImagesRef.fullPath    // false
+        const selectedFile = event.target.files[0];
+        this.setState({imageFile : selectedFile});
+        var reader = new fileReader();
+        let url = reader.readAsDataURL(this.state.imageFile)
+        console.log(url)
+        this.setState({imageURL: url });
+        // console.log(selectedFile)
+    }
+    convertToUrl(){
+        
+
+
+    }
 
     render() {
-        const {value,imageURL} = this.state;
+        const { value, imageURL } = this.state;
         return (
             <div className='profile'>
                 <h1>Profile</h1>
                 <div className='inputContainer'>
                     <h5>User Name</h5>
                     <div className='profileInput inputBox'>
-                        <input type='text' value={value} onChange={this.handleChange}/>
+                        <input type='text' value={value} onChange={this.handleChange} />
                     </div>
                     <div className='flexRight'>
-                        <button className='btn saveProfile'onClick={this.handleSubmit}>Save</button>
+                        <button className='btn saveProfile' onClick={this.handleSubmit}>Save</button>
                     </div>
-                    <img className='avatar' src={imageURL}/>
+                    <img className='avatar' src={imageURL} />
+                    <input type="file" accept="image/*,.pdf" onChange={this.handleImage} />
+
 
                 </div>
             </div>
