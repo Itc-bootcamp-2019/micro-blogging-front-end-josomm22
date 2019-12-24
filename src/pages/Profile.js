@@ -1,5 +1,6 @@
 import React from 'react';
 import firebase from 'firebase/app';
+import 'firebase/storage';
 
 
 import '../css/profile.css';
@@ -13,11 +14,11 @@ class Profile extends React.Component {
             imageFile: null
         }
         this.user = firebase.auth().currentUser;
-        
+
         this.handleImage = this.handleImage.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.convertToUrl = this.convertToUrl.bind(this);
+        this.handleUserNameSubmit = this.handleUserNameSubmit.bind(this);
+        this.handleImageSubmit = this.handleImageSubmit.bind(this);
     };
     componentDidMount() {
         this.setState({ value: this.user.displayName, imageURL: this.user.photoURL });
@@ -32,7 +33,7 @@ class Profile extends React.Component {
         );
 
     };
-    handleSubmit() {
+    handleUserNameSubmit() {
         const userName = this.state.value;
         this.user.updateProfile({
             displayName: userName,
@@ -45,30 +46,20 @@ class Profile extends React.Component {
 
     };
     handleImage(event) {
-        // Create a root reference
-        // var storageRef = firebase.storage().ref();
-
-        // // Create a reference to 'mountains.jpg'
-        // var mountainsRef = storageRef.child('mountains.jpg');
-
-        // // Create a reference to 'images/mountains.jpg'
-        // var mountainImagesRef = storageRef.child('images/mountains.jpg');
-
-        // // While the file names are the same, the references point to different files
-        // mountainsRef.name === mountainImagesRef.name            // true
-        // mountainsRef.fullPath === mountainImagesRef.fullPath    // false
         const selectedFile = event.target.files[0];
-        this.setState({imageFile : selectedFile});
-        // var reader = new fileReader();
-        let url = (this.state.imageFile)
-        console.log(url)
-        this.setState({imageURL: url });
-        // console.log(selectedFile)
+        this.setState({ imageFile: selectedFile });
+        this.setState({ imageURL: URL.createObjectURL(selectedFile) });
     }
-    convertToUrl(){
-        
-
-
+    handleImageSubmit() {
+        const file = this.state.imageFile;
+        const storageRef = firebase.storage().ref();
+        const mainImage = storageRef.child(`images/${file.name}`)
+        mainImage.put(file)
+        .then(
+            mainImage.getDownloadURL().then((url) => {
+                console.log(url);
+            })
+        )
     }
 
     render() {
@@ -82,10 +73,11 @@ class Profile extends React.Component {
                         <input type='text' value={value} onChange={this.handleChange} />
                     </div>
                     <div className='flexRight'>
-                        <button className='btn saveProfile' onClick={this.handleSubmit}>Save</button>
+                        <button className='btn saveProfile' onClick={this.handleUserNameSubmit}>Save</button>
                     </div>
                     <img className='avatar' src={imageURL} />
                     <input type="file" accept="image/*,.pdf" onChange={this.handleImage} />
+                    <button className='btn saveProfile' onClick={this.handleImageSubmit}>Upload image</button>
 
 
                 </div>
