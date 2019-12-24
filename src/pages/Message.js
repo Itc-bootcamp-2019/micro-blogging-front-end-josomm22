@@ -1,5 +1,4 @@
 import React from 'react';
-import { getUserName } from '../lib/Storage';
 import { sortDescending, sendTweetToDB,loadMessagesfromDB } from '../api/api';
 import {Messagebubble} from '../Components/MessageBubble';
 import firebase from 'firebase/app';
@@ -83,7 +82,7 @@ class Messages extends React.Component {
         let textValid = this.state.textValid;
         textValid = (value.length <= 140 ? true : false);
         if (hasError) {
-            this.setState({ errorMessage: "The tweet can\'t contain more than 140 chars" })
+            this.setState({ errorMessage: "The tweet can't contain more than 140 chars" })
         }
         this.setState({
             textValid: textValid, hasError: !textValid

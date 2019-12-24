@@ -1,5 +1,4 @@
 import React from 'react';
-import { setUserName, getUserName } from '../lib/Storage';
 import firebase from 'firebase/app';
 
 
@@ -60,8 +59,8 @@ class Profile extends React.Component {
         // mountainsRef.fullPath === mountainImagesRef.fullPath    // false
         const selectedFile = event.target.files[0];
         this.setState({imageFile : selectedFile});
-        var reader = new fileReader();
-        let url = reader.readAsDataURL(this.state.imageFile)
+        // var reader = new fileReader();
+        let url = (this.state.imageFile)
         console.log(url)
         this.setState({imageURL: url });
         // console.log(selectedFile)

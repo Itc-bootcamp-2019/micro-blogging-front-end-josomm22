@@ -1,7 +1,6 @@
 import React from 'react';
 import {
     BrowserRouter as Router,
-    Link,
     NavLink,
 } from "react-router-dom";
 import "firebase/auth";
