@@ -13,11 +13,6 @@ import {
 import "firebase/auth";
 import SignInScreen from '../src/firebaseui';
 import * as firebase from 'firebase/app';
-import {
-  FirebaseAuthProvider,
-  FirebaseAuthConsumer,
-} from "@react-firebase/auth";
-import config from './config'
 
 
 
@@ -41,12 +36,9 @@ useEffect(()=>{
 
   return (
 
-    <FirebaseAuthProvider {...config} firebase={firebase}>
       <Router>
         <div className="App">
-        <h2>{isLoggedin}</h2>
           <Navbar />
-            <FirebaseAuthConsumer>
               <Switch>
                 <Route path="/profile">
                   {!isLoggedin ? <Redirect to="/Signin" />: <Profile />}
@@ -58,10 +50,8 @@ useEffect(()=>{
                 {isLoggedin ? <Redirect to="/" />:<SignInScreen/>}
                 </Route>
               </Switch>
-            </FirebaseAuthConsumer>
         </div>
       </Router>
-    </FirebaseAuthProvider>
   );
 }
 

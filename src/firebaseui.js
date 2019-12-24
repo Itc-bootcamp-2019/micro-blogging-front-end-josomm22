@@ -23,7 +23,7 @@ const uiConfig = {
       return (
         <div className='login-box'>
           <h1>Micro-blog</h1>
-          <p>Please sign-in:</p>
+          <h3>Please sign-in:</h3>
           <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>
         </div>
       );
