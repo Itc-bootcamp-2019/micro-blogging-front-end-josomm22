@@ -55,9 +55,10 @@ class Profile extends React.Component {
         const storageRef = firebase.storage().ref();
         const mainImage = storageRef.child(`images/${file.name}`)
         mainImage.put(file)
-        .then(
-            mainImage.getDownloadURL().then((url) => {
+        .then( (response) =>
+            response.ref.getDownloadURL().then((url) => {
                 console.log(url);
+                this.user.updateProfile({photoURL:url})
             })
         )
     }
