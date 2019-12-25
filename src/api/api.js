@@ -34,7 +34,7 @@ export function listenToTweetsChange(callback) {
             console.log(change)
             if (change.type === 'added') {
                 let message = change.doc.data();
-                messages = [...messages,message];
+                messages = [...messages, message];
 
             }
 
@@ -48,4 +48,31 @@ export function listenToTweetsChange(callback) {
 
 
     });
-}
+};
+export function checkUserDB(user) {
+    return firebase.firestore().collection('users').doc(user.uid).set({
+        userName: user.displayName,
+    })
+};
+export function getUserNameFromUID(uid) {
+    // let messageName;
+    firebase.firestore().collection('users').doc(uid).get().then(function (doc) {
+        if (doc.exists) {
+            // console.log("Document data:", doc.data().userName);
+            const messageName = doc.data().userName;
+            return messageName
+
+        } else {
+            // console.log("No such document!");
+            const messageName = 'Legacy'
+            return messageName
+
+        }
+        // console.log(messageName)
+
+    }).catch(function (error) {
+        console.log("Error getting document:", error);
+    });
+
+
+};

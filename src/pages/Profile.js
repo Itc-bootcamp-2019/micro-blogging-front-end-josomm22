@@ -1,6 +1,7 @@
 import React from 'react';
 import firebase from 'firebase/app';
 import 'firebase/storage';
+import {checkUserDB} from '../api/api';
 
 
 import '../css/profile.css';
@@ -42,6 +43,8 @@ class Profile extends React.Component {
         }).catch(function (error) {
             // An error happened.
         });
+        checkUserDB(this.user)
+
         // setUserName(userName);
 
     };

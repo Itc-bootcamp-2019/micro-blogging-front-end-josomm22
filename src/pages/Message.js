@@ -1,6 +1,6 @@
 import React from 'react';
 import { sortDescending, sendTweetToDB, listenToTweetsChange } from '../api/api';
-import {Messagebubble} from '../Components/MessageBubble';
+import { Messagebubble } from '../Components/MessageBubble';
 import firebase from 'firebase/app';
 
 import '../css/messages.css';
@@ -25,20 +25,20 @@ class Messages extends React.Component {
             isSending: false,
             hasError: false,
             errorMessage: 'bababa',
-            userName : ''
+            userName: ''
         };
         this.user = firebase.auth().currentUser;
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount() {
-        this.setState({userName : this.user.displayName});
+        this.setState({ userName: this.user.uid });
         listenToTweetsChange((tweets) => {
             tweets = sortDescending(tweets)
             this.setState({ messages: tweets, isLoading: false })
-        })
-    }
-    
+        });
+    };
+
     handleChange(event) {
         let value = event.target.value
         this.setState({ value: value },
@@ -47,7 +47,7 @@ class Messages extends React.Component {
 
     }
     handleSubmit() {
-        const { messages, userName} = this.state;
+        const { messages, userName } = this.state;
         let date = (new Date()).toISOString();
         let newMessageObj = new messageObj(userName, date, this.state.value)
         this.setState({ isSending: true })
@@ -88,9 +88,9 @@ class Messages extends React.Component {
                     <textarea rows="6" cols="80" placeholder='What you have in mind...' value={value} onChange={this.handleChange} />
                     {hasError && <div className='errorMessage'><h3>{errorMessage}</h3> </div>}
                     <button className='btn submitTweet' disabled={!textValid || isSending} type='submit' onClick={this.handleSubmit}>
-                         {isSending && 'sending'}
-                         {!isSending && 'tweet'}
-                         </button>
+                        {isSending && 'sending'}
+                        {!isSending && 'tweet'}
+                    </button>
 
                 </div>
 

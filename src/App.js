@@ -13,6 +13,7 @@ import {
 import "firebase/auth";
 import SignInScreen from '../src/firebaseui';
 import * as firebase from 'firebase/app';
+import {checkUserDB} from './api/api';
 
 
 
@@ -24,12 +25,13 @@ function App() {
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         // User is signed in.
-        setIsLoggedin(true)
-        return isLoggedin
+        setIsLoggedin(true);
+        checkUserDB(user);
+        return isLoggedin;
       } else {
         // No user is signed in.
-        setIsLoggedin(false)
-        return isLoggedin
+        setIsLoggedin(false);
+        return isLoggedin;
       }
     })
   });
