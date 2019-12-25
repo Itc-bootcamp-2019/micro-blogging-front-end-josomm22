@@ -1,5 +1,5 @@
 import React from 'react';
-import { sortDescending, sendTweetToDB,loadMessagesfromDB } from '../api/api';
+import { sortDescending, sendTweetToDB, listenToTweetsChange } from '../api/api';
 import {Messagebubble} from '../Components/MessageBubble';
 import firebase from 'firebase/app';
 
@@ -33,20 +33,10 @@ class Messages extends React.Component {
     }
     componentDidMount() {
         this.setState({userName : this.user.displayName});
-        this.loadTweets();
-        // setInterval(() => {
-        //     this.loadTweets();
-
-        // }, 10000);
-    }
-    loadTweets(){
-        // console.log(loadMessagesfromDB());
-        loadMessagesfromDB().then((value) => {
-            const tweetArray = sortDescending(value);
-            this.setState({ messages: tweetArray, isLoading: false });
-        },
-        )
-
+        listenToTweetsChange((tweets) => {
+            tweets = sortDescending(tweets)
+            this.setState({ messages: tweets, isLoading: false })
+        })
     }
     
     handleChange(event) {
@@ -62,8 +52,8 @@ class Messages extends React.Component {
         let newMessageObj = new messageObj(userName, date, this.state.value)
         this.setState({ isSending: true })
         sendTweetToDB(newMessageObj).then(() => {
-            let newMessageArr = [...messages, newMessageObj]
-            this.setState({ messages: newMessageArr, isSending: false, value: '' });
+            // let newMessageArr = [...messages, newMessageObj]
+            this.setState({ isSending: false, value: '' });
 
         })
             .catch(error => {

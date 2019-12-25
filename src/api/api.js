@@ -8,7 +8,7 @@ export function sendTweet(obj) {
     return axios.post('https://itc-bootcamp-19-dot-charcha-dev.appspot.com/tweet', { "tweet": obj })
 };
 export function sortDescending(arr) {
-    return arr.sort((a, b) => (a.date > b.date) ? 1 : -1);
+    return arr.sort((a, b) => (a.date < b.date) ? 1 : -1);
 
 };
 
@@ -19,36 +19,33 @@ export function sendTweetToDB(obj) {
         content: obj.content
     })
 };
-export function loadMessagesfromDB() {
-    return new Promise(
-        function (resolve, reject) {
-    // Create the query to load the last 12 messages and listen for new ones.
+
+export function listenToTweetsChange(callback) {
     let messages = [];
+
     var query = firebase.firestore()
         .collection('tweets')
-        .orderBy('date','desc')
+        .orderBy('date', 'desc')
         .limit(10);
 
     // Start listening to the query.
     query.onSnapshot(function (snapshot) {
-        
-                snapshot.docChanges().forEach(function (change) {
-                    if (change){
-                   let message = change.doc.data();
-                    messages = [...messages, message];
-                    }
+        snapshot.docChanges().forEach(function (change) {
+            console.log(change)
+            if (change.type === 'added') {
+                let message = change.doc.data();
+                messages = [...messages,message];
 
-                    
-                
-                    // console.log(messages);
+            }
 
 
-                })
-                resolve(messages);
-            
+
+            // console.log(messages);
+
+
+        })
+        callback(messages);
+
 
     });
-
-})
-
 }

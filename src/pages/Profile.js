@@ -49,7 +49,7 @@ class Profile extends React.Component {
         const selectedFile = event.target.files[0];
         this.setState({ imageFile: selectedFile });
         this.setState({ imageURL: URL.createObjectURL(selectedFile) });
-    }
+    };
     handleImageSubmit() {
         const file = this.state.imageFile;
         const storageRef = firebase.storage().ref();
@@ -61,7 +61,7 @@ class Profile extends React.Component {
                 this.user.updateProfile({photoURL:url})
             })
         )
-    }
+    };
 
     render() {
         const { value, imageURL } = this.state;

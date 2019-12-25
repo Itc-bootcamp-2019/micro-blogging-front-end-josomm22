@@ -57,7 +57,7 @@ a{
 }
 .messageArea{
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
 }
 .messageArea h5{
     color: #FFFF;
