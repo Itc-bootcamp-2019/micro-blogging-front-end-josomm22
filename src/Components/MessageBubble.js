@@ -1,7 +1,10 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
+import {getUserNameFromUID } from '../api/api';
+
 
 export const Messagebubble = (props) => {
-    const [count,setcount] = useState(0)
+    const [count,setcount] = useState(0);
+    
     return (
         <div id={()=>setcount(count+1)} className='bubble'>
             <div className='bubbleSection'>

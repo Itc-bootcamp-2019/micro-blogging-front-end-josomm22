@@ -1,5 +1,5 @@
 import React from 'react';
-import { sortDescending, sendTweetToDB, listenToTweetsChange } from '../api/api';
+import { sortDescending, sendTweetToDB, listenToTweetsChange, getUserNameFromUID } from '../api/api';
 import { Messagebubble } from '../Components/MessageBubble';
 import firebase from 'firebase/app';
 
@@ -25,17 +25,28 @@ class Messages extends React.Component {
             isSending: false,
             hasError: false,
             errorMessage: 'bababa',
-            userName: ''
+            currentUserID: ''
         };
         this.user = firebase.auth().currentUser;
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount() {
-        this.setState({ userName: this.user.uid });
+        this.setState({ currentUserID: this.user.uid });
         listenToTweetsChange((tweets) => {
-            tweets = sortDescending(tweets)
-            this.setState({ messages: tweets, isLoading: false })
+            tweets = sortDescending(tweets);
+            tweets.forEach(obj => {
+                console.log(obj.uid)
+                getUserNameFromUID(obj.uid).then((messageUserNanme)=>{
+                    obj.userName = messageUserNanme;
+                    console.log(obj.userName);
+                    this.setState({ messages: tweets, isLoading: false })
+
+                });
+            });
+            // console.log(Object.keys(tweets[0]))
+            // console.log(Object.keys(this.state.messages[0]))
+
         });
     };
 
@@ -47,12 +58,11 @@ class Messages extends React.Component {
 
     }
     handleSubmit() {
-        const { messages, userName } = this.state;
+        const { currentUserID } = this.state;
         let date = (new Date()).toISOString();
-        let newMessageObj = new messageObj(userName, date, this.state.value)
+        let newMessageObj = new messageObj(currentUserID, date, this.state.value)
         this.setState({ isSending: true })
         sendTweetToDB(newMessageObj).then(() => {
-            // let newMessageArr = [...messages, newMessageObj]
             this.setState({ isSending: false, value: '' });
 
         })
