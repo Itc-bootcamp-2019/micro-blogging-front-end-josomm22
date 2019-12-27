@@ -85,16 +85,32 @@ a{
 
 color: #721C24;
 }
-.bubble{
+.bubbleWrapper{
     background-color: #343A40;
     border-radius: 6px;
     min-height: 84px;
     width: 600px;
     margin-top: 15px;
-    padding: 20px;
+    padding: 20px 20px 20px 5px;
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     box-sizing: border-box;
+}
+.image-bubble{
+width: 50px;
+margin-right: 5px;
+}
+.image-bubble img{
+    width: 50px;
+    position: relative;
+    left: 0px;
+    top: 50%;
+    border-radius: 50%;
+    transform: translateY(-50%);
+    
+}
+.data-bubble{
+flex-grow: 1;
 }
 .bubbleSection{
     display: flex;

@@ -37,8 +37,9 @@ class Messages extends React.Component {
             tweets = sortDescending(tweets);
             tweets.forEach(obj => {
                 console.log(obj.uid)
-                getUserNameFromUID(obj.uid).then((messageUserNanme)=>{
-                    obj.userName = messageUserNanme;
+                getUserNameFromUID(obj.uid).then((userData)=>{
+                    obj.userName = userData.userName;
+                    obj.imageURL = userData.photoURL;
                     console.log(obj.userName);
                     this.setState({ messages: tweets, isLoading: false })
 
@@ -108,7 +109,7 @@ class Messages extends React.Component {
                     {isLoading && <h5>Loading...</h5>}
                     {!isLoading
                         &&
-                        messages.map((obj, index) => <Messagebubble key={index} login={obj.userName} createdOn={obj.date} content={obj.content} />)}
+                        messages.map((obj, index) => <Messagebubble key={index} imageURL = {obj.imageURL} login={obj.userName} createdOn={obj.date} content={obj.content} />)}
                 </div>
             </div>
         )

@@ -51,6 +51,7 @@ export function listenToTweetsChange(callback) {
 export function checkUserDB(user) {
     return firebase.firestore().collection('users').doc(user.uid).set({
         userName: user.displayName,
+        photoURL: user.photoURL
     })
 };
 export function getUserNameFromUID(uid) {
@@ -58,13 +59,13 @@ export function getUserNameFromUID(uid) {
     return firebase.firestore().collection('users').doc(uid).get().then(function (doc) {
         if (doc.exists) {
             // console.log("Document data:", doc.data().userName);
-            let messageName = doc.data().userName
-            return messageName;
+            let userData = doc.data()
+            return userData;
 
         } else {
             // console.log("No such document!");
-            let messageName = 'Legacy'
-            return messageName;
+            let userData = 'Legacy'
+            return userData;
 
         }
     }).catch(function (error) {
