@@ -49,9 +49,16 @@ export function listenToTweetsChange(callback) {
     });
 };
 export function checkUserDB(user) {
+    let photoURL;
+    if(!user.photoURL){
+        photoURL = `http://via.placeholder.com/150/0000FF/FFFFFF/?text=${user.displayName[0]}`;
+        console.log(user.photoURL)
+    }else{
+        photoURL = user.photoURL;
+    }
     return firebase.firestore().collection('users').doc(user.uid).set({
         userName: user.displayName,
-        photoURL: user.photoURL
+        photoURL: photoURL
     })
 };
 export function getUserNameFromUID(uid) {
