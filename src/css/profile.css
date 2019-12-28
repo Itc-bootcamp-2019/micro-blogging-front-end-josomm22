@@ -53,5 +53,6 @@
     color: #FFFFFF;
 }
 .avatar{
-    width: 400px;
+    width: 100px;
+    border-radius: 50%;
 }

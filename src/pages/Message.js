@@ -18,6 +18,7 @@ class Messages extends React.Component {
         super(props);
         this.state = {
             value: '',
+            messageQuantity: 10,
             messages: [],
             textValid: true,
             idCounter: 0,
@@ -33,14 +34,17 @@ class Messages extends React.Component {
     }
     componentDidMount() {
         this.setState({ currentUserID: this.user.uid });
-        listenToTweetsChange((tweets) => {
+        this.loadTweets();
+
+    };
+    loadTweets() {
+        return listenToTweetsChange(this.state.messageQuantity, (tweets) => {
             tweets = sortDescending(tweets);
             tweets.forEach(obj => {
-                console.log(obj.uid)
-                getUserNameFromUID(obj.uid).then((userData)=>{
+                getUserNameFromUID(obj.uid).then((userData) => {
                     obj.userName = userData.userName;
                     obj.imageURL = userData.photoURL;
-                    console.log(obj.userName);
+                    // console.log(obj.userName);
                     this.setState({ messages: tweets, isLoading: false })
 
                 });
@@ -50,14 +54,13 @@ class Messages extends React.Component {
 
         });
     };
-
     handleChange(event) {
         let value = event.target.value
         this.setState({ value: value },
             () => { this.validateField(value) }  //remove this callback
         );
 
-    }
+    };
     handleSubmit() {
         const { currentUserID } = this.state;
         let date = (new Date()).toISOString();
@@ -65,6 +68,8 @@ class Messages extends React.Component {
         this.setState({ isSending: true })
         sendTweetToDB(newMessageObj).then(() => {
             this.setState({ isSending: false, value: '' });
+            console.log(this.state.messageQuantity);
+            this.loadTweets();
 
         })
             .catch(error => {
@@ -76,7 +81,8 @@ class Messages extends React.Component {
             );
 
 
-    }
+    };
+
     //try to get rid of validatefield and set in render
     validateField(value) {
         const { hasError } = this.state;
@@ -94,7 +100,7 @@ class Messages extends React.Component {
         const { messages, isLoading, textValid, isSending, errorMessage, hasError, value } = this.state;
         // const { isValid, hasError } = this.validateField(value)
         return (
-            <div className='mainWrapper'>
+            <div className='mainWrapper' >
                 <div className='messageInput inputBox'>
                     <textarea rows="6" cols="80" placeholder='What you have in mind...' value={value} onChange={this.handleChange} />
                     {hasError && <div className='errorMessage'><h3>{errorMessage}</h3> </div>}
@@ -109,7 +115,7 @@ class Messages extends React.Component {
                     {isLoading && <h5>Loading...</h5>}
                     {!isLoading
                         &&
-                        messages.map((obj, index) => <Messagebubble key={index} imageURL = {obj.imageURL} login={obj.userName} createdOn={obj.date} content={obj.content} />)}
+                        messages.map((obj, index) => <Messagebubble key={index} imageURL={obj.imageURL} login={obj.userName} createdOn={obj.date} content={obj.content} />)}
                 </div>
             </div>
         )

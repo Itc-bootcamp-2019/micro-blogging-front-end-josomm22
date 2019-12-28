@@ -20,13 +20,13 @@ export function sendTweetToDB(obj) {
     })
 };
 
-export function listenToTweetsChange(callback) {
+export function listenToTweetsChange(num ,callback) {
     let messages = [];
 
     var query = firebase.firestore()
         .collection('tweets')
         .orderBy('date', 'desc')
-        .limit(10);
+        .limit(num);
 
     // Start listening to the query.
     query.onSnapshot(function (snapshot) {
@@ -52,7 +52,13 @@ export function checkUserDB(user) {
     let photoURL;
     if(!user.photoURL){
         photoURL = `http://via.placeholder.com/150/0000FF/FFFFFF/?text=${user.displayName[0]}`;
-        console.log(user.photoURL)
+        user.updateProfile({
+            photoURL: photoURL,
+        }).then(function () {
+            // Update successful.
+        }).catch(function (error) {
+            // An error happened.
+        });
     }else{
         photoURL = user.photoURL;
     }
